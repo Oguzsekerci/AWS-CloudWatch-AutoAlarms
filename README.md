@@ -2,6 +2,8 @@
 
 An AWS Lambda function (Python) that automatically creates and deletes CloudWatch alarms for EC2 instances and Lambda functions based on their tags. Triggered by EventBridge (CloudWatch Events).
 
+> Based on [aws-samples/amazon-cloudwatch-auto-alarms](https://github.com/aws-samples/amazon-cloudwatch-auto-alarms) (MIT-0 License), adapted and extended for internal use.
+
 ## How It Works
 
 - **EC2 instance starts** → checks for the `Create_Auto_Alarms` tag → creates CPU, memory, and disk alarms
