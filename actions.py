@@ -199,8 +199,11 @@ def process_alarm_tags(instance_id, instance_info, default_alarms, metric_dimens
         for alarm_tag in default_alarms['AWS/EC2']:
             create_alarm_from_tag(instance_id, alarm_tag, instance_info, metric_dimensions_map, sns_topic_arn, alarm_separator)
 
-        for alarm_tag in default_alarms[cw_namespace][platform]:
-            create_alarm_from_tag(instance_id, alarm_tag, instance_info, metric_dimensions_map, sns_topic_arn, alarm_separator)
+        if platform and platform in default_alarms.get(cw_namespace, {}):
+            for alarm_tag in default_alarms[cw_namespace][platform]:
+                create_alarm_from_tag(instance_id, alarm_tag, instance_info, metric_dimensions_map, sns_topic_arn, alarm_separator)
+        else:
+            logger.warning('Unknown or unsupported platform for instance {}: {}'.format(instance_id, platform))
     else:
         logger.info("Default alarm creation is turned off")
 
